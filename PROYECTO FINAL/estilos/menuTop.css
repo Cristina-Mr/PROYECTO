@@ -1,0 +1,82 @@
+/*********        ESTILOS DEL MENU SUPERIOR          ********/
+/* Estilos para el menú */
+.menu {
+    grid-column: 1 / -1;
+    background-color: #333333;
+    color: white;
+    text-align: center;
+    padding: 40px;
+    font-size: 1.5em;
+    display: flex;
+    justify-content: flex-end; /* Alinea los enlaces a la derecha */
+    align-items: center; /* Centra los elementos verticalmente */
+}
+
+.menu nav ul {
+    display: flex; /* Usamos Flexbox para los enlaces */
+    list-style-type: none; /* Elimina los puntos de la lista */
+}
+
+.menu nav ul li {
+    margin-left: 20px; /* Espaciado entre los enlaces */
+}
+
+/* Estilo común para enlaces y botones */
+.button-style {
+    padding: 10px 15px; /* Tamaño de los elementos */
+    font-size: 1em; /* Tamaño de la fuente */
+    border-radius: 30px; /* Bordes redondeados */
+    cursor: pointer; /* Cambio de cursor */
+    transition: background-color 0.3s ease; /* Transición suave para el fondo */
+}
+
+/* Estilos para los enlaces del menú */
+.menu nav ul li a {
+    text-decoration: none; /* Elimina el subrayado de los enlaces */
+    color: white;
+}
+
+/* Cambia el fondo de los enlaces al pasar el ratón por encima */
+.menu nav ul li a:hover {
+    color: #f39c12; /* Cambio de color cuando se pasa el ratón por encima */
+
+}
+
+/* Estilos para el campo de búsqueda */
+.search-bar {
+    display: flex; /* Alineamos el input y el botón en línea */
+    align-items: center; /* Centra verticalmente los elementos */
+    justify-content: center; /* Centra horizontalmente */
+    margin-left: 20px; /* Espaciado entre el buscador y los enlaces */
+}
+
+/* Barra de búsqueda input */
+.search-bar input {
+    padding: 0px 200px; /* Aumentamos el tamaño del campo de texto */
+    font-size: 1em; /* Aumentamos el tamaño de la fuente */
+    border: 2px solid #333; /* Bordes de color oscuro */
+    border-radius: 30px; /* Bordes redondeados */
+    margin-right: 10px; /* Espaciado entre el input y el botón */
+    outline: none; /* Eliminamos el borde del enfoque predeterminado */
+    width: 250px; /* Ajusta el ancho del campo de búsqueda */
+}
+
+/* Estilos para el botón del buscador */
+.search-bar button {
+    background-color: #333; /* Color de fondo del botón */
+    color: white; /* Color del texto */
+    border: none;
+    border-radius: 30px; /* Bordes redondeados */
+    font-size: 1em; /* Tamaño de la fuente */
+}
+
+/* Cambia el color de fondo del botón al pasar el ratón por encima */
+.search-bar button:hover {
+   color: #f39c12; /* Cambio de color cuando se pasa el ratón por encima */
+}
+
+.logo {
+    color: white;
+    font-size: 1.8em;  /* Ajusta el tamaño del logo */
+    margin-left: 80px;  /* Espaciado entre el logo y los otros elementos */
+}
