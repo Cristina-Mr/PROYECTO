@@ -75,8 +75,9 @@
    color: #f39c12; /* Cambio de color cuando se pasa el ratón por encima */
 }
 
-.logo {
-    color: white;
-    font-size: 1.8em;  /* Ajusta el tamaño del logo */
-    margin-left: 80px;  /* Espaciado entre el logo y los otros elementos */
+.logo img {
+  margin-right: 500px;
+    width: 100px; /* Establece el ancho de la imagen */
+    height: auto; /* Mantiene las proporciones de la imagen */
+    align-items: center;
 }

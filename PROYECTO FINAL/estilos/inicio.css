@@ -32,11 +32,6 @@ body, html {
     height: 100%; /* Asegura que ocupe toda la altura asignada dentro del grid */
 }
 
-.menu .logo {
-    margin-right: auto; /* Hace que el logo se quede en el extremo izquierdo */
-    font-size: 1em; /* Ajusta el tamaño del logo */
-    color: white; /* Color del texto */
-}
 
 .HeadCarrusel{
     text-align: center;
