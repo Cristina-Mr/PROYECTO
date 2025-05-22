@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="../estilos/menuTop.css">
   <link rel="stylesheet" href="../estilos/inicio.css">
   <link rel="stylesheet" href="../estilos/creacurso.css">
+  <link rel="stylesheet" href="../estilos/footer.css">
 
 </head>
 <body>    
@@ -39,9 +40,19 @@
       </div>
 
       <div class="form-group">
-        <label for="descripcion">Descripción</label>
-        <textarea id="descripcion" name="descripcion" placeholder="Describe brevemente el contenido del curso..." required></textarea>
+        <label for="titulo">Tema</label>
+        <input type="text" id="titulo" name="titulo" placeholder="Cocina" required>
       </div>
+
+      <div class="form-group">
+        <label for="descripcion">Descripción</label>
+        <textarea id="descripcion" name="descripcion" placeholder="Aprende a hacer sushi..." required></textarea>
+      </div>
+
+      <div class="form-group">
+    <label for="ubicacion">Ubicación del Curso</label>
+    <input type="text" id="ubicacion" name="ubicacion" placeholder="Ej: Madrid" required>
+  </div>
 
       <div class="form-group">
         <label for="fecha">Fecha de Inicio</label>
@@ -50,12 +61,12 @@
 
       <div class="form-group">
         <label for="duracion">Duración (horas)</label>
-        <input type="number" id="duracion" name="duracion" min="1" placeholder="Ej: 40" required>
+        <input type="number" id="duracion" name="duracion" min="1" placeholder="10" required>
       </div>
 
       <div class="form-group">
         <label for="precio">Precio (€)</label>
-        <input type="number" id="precio" name="precio" step="0.01" min="0" placeholder="Ej: 99.99" required>
+        <input type="number" id="precio" name="precio" step="0.01" min="0" placeholder="45.00" required>
       </div>
 
       <div class="form-group">
@@ -68,5 +79,8 @@
       </div>
     </form>
   </main>
+
+  <footer class="pie">Politica de privacidad</footer>
+
 </body>
 </html>
