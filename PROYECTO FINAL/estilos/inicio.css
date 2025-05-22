@@ -5,7 +5,6 @@
 }
 
 body, html {
-    font-family: 'Poppins', sans-serif;
     height: 100%;
     width: 100%;
     overflow-x: hidden; /* Evita que el contenido se desborde horizontalmente */
@@ -13,11 +12,11 @@ body, html {
 
 .container {
     display: grid;
-    grid-template-columns: 1fr; /* Solo una columna */
-    grid-template-rows: auto auto 1fr auto; /* Fila para el menú, una para el contenido principal, y una para el pie */
-    gap: 6px; /* Espaciado entre las cajas */
-    height: 100vh; /* Ocupa toda la altura del viewport */
-    width: 100vw; /* Ocupa toda la anchura del viewport */
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr auto;
+    gap: 6px;
+    min-height: 100vh; /* En lugar de height fija */
+    width: 100vw;
 }
 
 .contenido2 {

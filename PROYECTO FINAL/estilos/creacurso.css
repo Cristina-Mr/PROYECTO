@@ -6,31 +6,37 @@ body {
   min-height: 100vh;
 }
 
-/* Contenedor principal */
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 30px 20px 40px; /* este padding top asegura separación del menú */
   display: flex;
   justify-content: center;
-  align-items: center;
-  min-height: calc(100vh - 120px); /* Ajusta para no pisar el menú */
-  box-sizing: border-box;
+  align-items: flex-start;
+  min-height: calc(100vh - 120px);
+}
+
+.form-container select {
+  padding: 14px 16px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+  transition: all 0.3s ease;
 }
 
 /* Formulario */
 .form-container {
-  background: #9fefdd;
+  background: #ffffff;
   width: 100%;
-  max-width: 800px;
-  padding: 30px;
+  max-width: 600px;
+  padding: 40px;
   border-radius: 20px;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Cambio aquí */
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
   animation: fadeIn 1s ease-in-out;
-  box-sizing: border-box;
 }
 
 @keyframes fadeIn {
@@ -39,7 +45,6 @@ body {
 }
 
 .form-container h2 {
-  grid-column: 1 / -1; /* Título ocupa todo el ancho */
   text-align: center;
   font-size: 2.5rem;
   color: #0077b6;
@@ -62,10 +67,10 @@ body {
 .form-container textarea,
 .form-container input[type="file"] {
   width: 100%;
-  padding: 12px 14px;
+  padding: 14px 16px;
   font-size: 1rem;
   border: 1px solid #ccc;
-  border-radius: 10px;
+  border-radius: 12px;
   background-color: #f9f9f9;
   transition: all 0.3s ease;
 }
@@ -80,14 +85,13 @@ body {
 
 .form-container textarea {
   resize: vertical;
-  min-height: 100px;
+  min-height: 120px;
 }
 
 .form-container button {
-  grid-column: 1 / -1; /* Botón ocupa toda la fila */
   padding: 16px;
   font-size: 1.2rem;
-  background: linear-gradient(135deg, #00b4d8, #0077b6);
+  background: linear-gradient(135deg, #d49f5a, #d66d0a);
   color: #fff;
   font-weight: bold;
   border: none;
@@ -97,8 +101,13 @@ body {
 }
 
 .form-container button:hover {
-  background: linear-gradient(135deg, #d66d0a, #d87a00);
+  background: linear-gradient(135deg, #d66d0a, #e7b068);
   transform: translateY(-1px);
 }
 
-/* Responsive general (ya no necesitas media query extra) */
+/* Responsive para el formulario */
+@media (max-width: 768px) {
+  .form-container {
+    padding: 30px 20px;
+  }
+}
