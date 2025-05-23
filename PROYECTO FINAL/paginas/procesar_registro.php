@@ -1,28 +1,44 @@
 <?php
-// Conexión a la base de datos 'proclass'
-$conexion = new mysqli("localhost", "root", "", "proclass");
+require '../db.php';
 
-// Verificar conexión
-if ($conexion->connect_error) {
-    die("Conexión fallida: " . $conexion->connect_error);
-}
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-// Recoger datos del formulario
-$usuario = $_POST['usuario'];
-$email = $_POST['email'];
-$clave = password_hash($_POST['clave'], PASSWORD_DEFAULT); // Encriptar la contraseña
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nombre = $_POST['usuario'];
+    $email = $_POST['email'];
+    $clave = $_POST['clave'];
+    $confirmar_clave = $_POST['confirmar-clave'];
 
-// Insertar datos en la tabla 'usuarios'
-$sql = "INSERT INTO usuarios (usuario, email, clave) VALUES (?, ?, ?)";
-$stmt = $conexion->prepare($sql);
-$stmt->bind_param("sss", $usuario, $email, $clave);
+    if ($clave !== $confirmar_clave) {
+        echo "❌ Las contraseñas no coinciden.";
+        exit;
+    }
 
-if ($stmt->execute()) {
-    echo "✅ Usuario registrado correctamente.";
+    $clave_encriptada = password_hash($clave, PASSWORD_DEFAULT);
+
+    $sql = "INSERT INTO Usuarios (Nombre, Email, Contraseña) VALUES (?, ?, ?)";
+    $stmt = $conexion->prepare($sql);
+
+    if (!$stmt) {
+        echo "❌ Error preparando la consulta: " . $conexion->error;
+        exit;
+    }
+
+    $stmt->bind_param("sss", $nombre, $email, $clave_encriptada);
+
+    if ($stmt->execute()) {
+        echo "✅ Usuario registrado correctamente.";
+    } else {
+        echo "❌ Error al registrar: " . $stmt->error;
+    }
+
+    $stmt->close();
+    $conexion->close();
 } else {
-    echo "❌ Error al registrar: " . $stmt->error;
+    echo "❌ Método no permitido.";
 }
-
-$stmt->close();
-$conexion->close();
 ?>
+
+
+
