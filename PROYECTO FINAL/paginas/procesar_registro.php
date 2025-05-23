@@ -29,6 +29,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($stmt->execute()) {
         echo "✅ Usuario registrado correctamente.";
+
+        // Redirigir al inicio
+        header("Location: inicio.html");
+        
     } else {
         echo "❌ Error al registrar: " . $stmt->error;
     }
