@@ -17,7 +17,12 @@ CREATE TABLE Cursos (
     Descripción TEXT NOT NULL,
     ID_cat INT NOT NULL,
     Precio DECIMAL(10,2) NOT NULL,
-    FOREIGN KEY (ID_cat) REFERENCES Categorias(ID_cat)
+    Fecha_inicio DATE NOT NULL,
+    Duracion INT NOT NULL, -- en horas
+    Imagen VARCHAR(255), -- ruta del archivo de imagen
+    ID_ubi INT NOT NULL,
+    FOREIGN KEY (ID_cat) REFERENCES Categorias(ID_cat),
+    FOREIGN KEY (ID_ubi) REFERENCES Ubicaciones(ID_ubi)
 );
 
 CREATE TABLE Ubicaciones (
@@ -29,11 +34,9 @@ CREATE TABLE Publicaciones (
     ID_publica INT PRIMARY KEY AUTO_INCREMENT,
     ID_curso INT NOT NULL,
     ID_usu INT NOT NULL,
-    ID_ubicacion INT NOT NULL,
     Fecha_pub TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (ID_curso) REFERENCES Cursos(ID_curso),
-    FOREIGN KEY (ID_usu) REFERENCES Usuarios(ID_usu),
-    FOREIGN KEY (ID_ubicacion) REFERENCES Ubicaciones(ID_ubi)
+    FOREIGN KEY (ID_usu) REFERENCES Usuarios(ID_usu)
 );
 
 CREATE TABLE Inscripciones (
