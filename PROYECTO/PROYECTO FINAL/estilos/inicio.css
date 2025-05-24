@@ -1,0 +1,58 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Asegura que el padding y border no afecten el tamaño total de los elementos */
+}
+
+body, html {
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden; /* Evita que el contenido se desborde horizontalmente */
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr auto;
+    gap: 6px;
+    min-height: 100vh; /* En lugar de height fija */
+    width: 100vw;
+}
+
+.contenido2 {
+    background-color: white;
+    color: black; /* Cambié el color de texto a negro para hacerlo visible en fondo blanco */
+    text-align: center;
+    padding: 20px;
+    font-size: 1.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%; /* Asegura que ocupe todo el espacio dentro de su celda */
+    height: 100%; /* Asegura que ocupe toda la altura asignada dentro del grid */
+}
+
+
+.HeadCarrusel{
+    text-align: center;
+}
+
+.filtro-categoria.active {
+    font-weight: bold;
+    color: #4CAF50; /* O el color principal de tu sitio */
+    text-decoration: underline;
+}
+
+.curso-item {
+    margin: 10px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.curso-item img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
