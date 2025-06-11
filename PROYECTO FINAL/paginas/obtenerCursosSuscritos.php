@@ -1,24 +1,31 @@
 <?php
+// ../api/obtenerCursosSuscritos.php
 require '../db.php';
+session_start();
 header('Content-Type: application/json');
 
-$usuarioId = $_GET['usuario_id'];
-$sql = "SELECT c.ID, c.Titulo, c.Descripcion, c.Imagen 
-        FROM Cursos c
-        JOIN Suscripciones s ON c.ID = s.CursoID
-        WHERE s.UsuarioID = ?";
+if (!isset($_SESSION['usuario_id'])) {
+    echo json_encode([]);
+    exit;
+}
+
+$usuarioId = $_SESSION['usuario_id'];
+
+$sql = "
+    SELECT c.ID, c.Titulo, c.Descripcion, c.Imagen
+    FROM Suscripciones s
+    INNER JOIN Cursos c ON s.ID_curso = c.ID
+    WHERE s.ID_usuario = ?
+";
+
 $stmt = $conexion->prepare($sql);
 $stmt->bind_param("i", $usuarioId);
 $stmt->execute();
 $result = $stmt->get_result();
 
 $cursos = [];
-while ($curso = $result->fetch_assoc()) {
-    $cursos[] = $curso;
+while ($fila = $result->fetch_assoc()) {
+    $cursos[] = $fila;
 }
 
 echo json_encode($cursos);
-
-$stmt->close();
-$conexion->close();
-?>

@@ -26,12 +26,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Verificar la contraseña
         if (password_verify($contraseña, $usuario['Contraseña'])) {
             // Inicio de sesión exitoso
-            $_SESSION['usuario_id'] = $usuario['id'];
+            $_SESSION['usuario_id'] = $usuario['ID_usu'];
             $_SESSION['usuario_nombre'] = $usuario['Nombre'];
             $_SESSION['usuario_email'] = $usuario['Email'];
             
             // Redirigir al usuario a la página principal
-            header("Location: inicio.php");
+            header("Location: inicio.html");
             exit();
         } else {
             // Contraseña incorrecta, volver al login con mensaje de error
