@@ -7,6 +7,7 @@
     text-align: center;
     padding: 10px;
     font-size: 1.5em;
+    font-family: 'Roboto', sans-serif;
     display: flex;
     justify-content: center;
     overflow: hidden; /* Evita el desbordamiento del contenido */

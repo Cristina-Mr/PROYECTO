@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $confirmar_clave = $_POST['confirmar-clave'];
 
     if ($clave !== $confirmar_clave) {
-        echo "❌ Las contraseñas no coinciden.";
+        header("Location: registro.html?error=claves_no_coinciden");
         exit;
     }
 
@@ -21,27 +21,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt = $conexion->prepare($sql);
 
     if (!$stmt) {
-        echo "❌ Error preparando la consulta: " . $conexion->error;
+        header("Location: registro.html?error=fallo_preparacion");
         exit;
     }
 
     $stmt->bind_param("sss", $nombre, $email, $clave_encriptada);
 
     if ($stmt->execute()) {
-        echo "✅ Usuario registrado correctamente.";
-
-        // Redirigir al inicio
-        header("Location: inicio.html");
-        
+        header("Location: sesion.html?registro=exitoso");
+        exit;
     } else {
-        echo "❌ Error al registrar: " . $stmt->error;
+        if ($conexion->errno == 1062) {
+            // Email duplicado
+            header("Location: registro.html?error=email_duplicado");
+        } else {
+            header("Location: registro.html?error=registro_fallido");
+        }
+        exit;
     }
 
     $stmt->close();
     $conexion->close();
 } else {
-    echo "❌ Método no permitido.";
+    header("Location: registro.html?error=metodo_no_permitido");
+    exit;
 }
 ?>
+
 
 
