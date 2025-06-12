@@ -81,7 +81,6 @@
         </section>
 
         <section class="contenido2">
-        
             <div class="cursos-grid" id="cursosGrid">
                 <!-- Los cursos se cargarán aquí dinámicamente -->
             </div>
@@ -149,12 +148,14 @@
                 if (paginaActual > 1) {
                     paginaActual--;
                     cargarCursos();
+                    cursosGrid.scrollTo({ left: 0, behavior: 'smooth' });
                 }
             });
 
             btnSiguiente.addEventListener('click', function() {
                 paginaActual++;
                 cargarCursos();
+                cursosGrid.scrollTo({ left: 0, behavior: 'smooth' });
             });
 
             filtrosCategoria.forEach(filtro => {
@@ -213,24 +214,25 @@
             }
 
             function mostrarCursos(cursos) {
-    cursosGrid.innerHTML = '';
-    if (cursos.length === 0) {
-        cursosGrid.innerHTML = '<p>No se encontraron cursos.</p>';
-        return;
-    }
-    cursos.forEach(curso => {
-        const cursoElement = document.createElement('div');
-        cursoElement.className = 'curso-item';
-        cursoElement.innerHTML = `
-            <img src="${curso.Imagen_curso}" alt="${curso.Titulo}">
-            <h3>${curso.Titulo}</h3>
-            <p>${curso.tema} - $${curso.Precio}</p>
-            <p class="descripcion">${curso.Descripcion}</p>
-            <a href="detalle_curso.html?id=${curso.ID_curso}"></a>
-        `;
-        cursosGrid.appendChild(cursoElement);
-    });
-}
+                cursosGrid.innerHTML = '';
+                if (cursos.length === 0) {
+                    cursosGrid.innerHTML = '<p>No se encontraron cursos.</p>';
+                    return;
+                }
+                
+                cursos.forEach(curso => {
+                    const cursoElement = document.createElement('div');
+                    cursoElement.className = 'curso-item';
+                    cursoElement.innerHTML = `
+                        <img src="${curso.Imagen_curso}" alt="${curso.Titulo}">
+                        <h3>${curso.Titulo}</h3>
+                        <p>${curso.tema} - $${curso.Precio}</p>
+                        <p class="descripcion">${curso.Descripcion}</p>
+                        <a href="detalle_curso.html?id=${curso.ID_curso}" class="ver-curso">Ver curso</a>
+                    `;
+                    cursosGrid.appendChild(cursoElement);
+                });
+            }
 
             function actualizarPaginacion(totalCursos) {
                 paginaActualSpan.textContent = paginaActual;
