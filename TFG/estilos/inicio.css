@@ -145,3 +145,24 @@ body, html {
         .btn-buscar-advanced:hover {
             background-color: #45a049;
         }
+        .cursos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.curso-item {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 10px;
+    background: #fff;
+    text-align: center;
+}
+
+.curso-item img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+}
