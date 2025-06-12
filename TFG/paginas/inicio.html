@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="../estilos/carrusel.css">
     <link rel="stylesheet" href="../estilos/preguntas.css">
     <title>ProClass - Inicio</title>
- 
 </head>
 <body>
     <div class="container">
@@ -58,7 +57,7 @@
                     <li><a href="creacurso.html">Publicar curso</a></li>
                     <li><a href="perfil.php">Perfil</a></li>
                     <li><a href="sesion.html">Ingresar</a></li>
-                    <li><a href="suscripciones.html">suscripciones</a></li>
+                    <li><a href="suscripciones.html">Suscripciones</a></li>
                 </ul>
             </nav>
         </header>
@@ -82,7 +81,6 @@
         </section>
 
         <section class="contenido2">
-            <h2>Cursos Disponibles</h2>
             <div class="cursos-grid" id="cursosGrid">
                 <!-- Los cursos se cargarán aquí dinámicamente -->
             </div>
@@ -96,28 +94,24 @@
             </div>
         </section>
 
-         <footer class="pie">
-  <div class="footer-content">
-    <div class="footer-logo">
-      <img id="minilogo" src="../imagenes/logo.png" alt="Logo">
-      <span class="copyright-text">© 2025 ProClass</span>
-    </div>
-
-     <div class="footer-divider"></div> <!-- Línea separadora -->
-
-    <div class="footer-links">
-      <a href="PoliticaPrivacidad.html">Política de privacidad</a> 
-      <a href="preguntas.html">Preguntas Frecuentes</a>
-      <a href="contacto.html">Contacto</a>
-      
-    </div>
-  </div>
-</footer>
+        <footer class="pie">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img id="minilogo" src="../imagenes/logo.png" alt="Logo">
+                    <span class="copyright-text">© 2025 ProClass</span>
+                </div>
+                <div class="footer-divider"></div>
+                <div class="footer-links">
+                    <a href="PoliticaPrivacidad.html">Política de privacidad</a> 
+                    <a href="preguntas.html">Preguntas Frecuentes</a>
+                    <a href="contacto.html">Contacto</a>
+                </div>
+            </div>
+        </footer>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Variables para paginación y filtros
             let paginaActual = 1;
             const cursosPorPagina = 4;
             let filtrosActuales = {
@@ -126,8 +120,7 @@
                 precio: '',
                 ubicacion: ''
             };
-            
-            // Elementos del DOM
+
             const cursosGrid = document.getElementById('cursosGrid');
             const btnAnterior = document.getElementById('btnAnterior');
             const btnSiguiente = document.getElementById('btnSiguiente');
@@ -137,106 +130,93 @@
             const searchForm = document.getElementById('searchForm');
             const searchAdvanced = document.querySelector('.search-advanced');
             const toggleAdvanced = document.querySelector('.toggle-advanced');
-            
-            // Mostrar/ocultar búsqueda avanzada
+
             toggleAdvanced.addEventListener('click', function(e) {
-                e.stopPropagation(); // Evita que el click se propague
+                e.stopPropagation();
                 searchAdvanced.classList.toggle('active');
             });
-            
-            // Ocultar el menú al hacer click fuera
+
             document.addEventListener('click', function(e) {
                 if (!searchAdvanced.contains(e.target) && e.target !== toggleAdvanced) {
                     searchAdvanced.classList.remove('active');
                 }
             });
-            
-            // Cargar cursos iniciales
+
             cargarCursos();
-            
-            // Event listeners para paginación
+
             btnAnterior.addEventListener('click', function() {
                 if (paginaActual > 1) {
                     paginaActual--;
                     cargarCursos();
+                    cursosGrid.scrollTo({ left: 0, behavior: 'smooth' });
                 }
             });
-            
+
             btnSiguiente.addEventListener('click', function() {
                 paginaActual++;
                 cargarCursos();
+                cursosGrid.scrollTo({ left: 0, behavior: 'smooth' });
             });
-            
-            // Event listeners para filtros de categoría
+
             filtrosCategoria.forEach(filtro => {
                 filtro.addEventListener('click', function(e) {
                     e.preventDefault();
                     filtrosActuales.categoria = this.dataset.categoria;
                     paginaActual = 1;
                     cargarCursos();
-                    
-                    // Resaltar categoría seleccionada
                     filtrosCategoria.forEach(f => f.classList.remove('active'));
                     this.classList.add('active');
                 });
             });
-            
-            // Event listener para quitar filtros
+
             btnQuitarFiltros.addEventListener('click', function(e) {
                 e.preventDefault();
                 resetearFiltros();
                 cargarCursos();
             });
-            
-            // Event listener para el formulario de búsqueda
+
             searchForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 const formData = new FormData(this);
-                
-                // Actualizar filtros
                 filtrosActuales = {
                     texto: formData.get('search') || '',
                     categoria: formData.get('categoria') || '',
                     precio: formData.get('precio') || '',
                     ubicacion: formData.get('ubicacion') || ''
                 };
-                
                 paginaActual = 1;
                 cargarCursos();
                 searchAdvanced.classList.remove('active');
             });
-            
-            // Función para cargar cursos
+
             function cargarCursos() {
                 const params = new URLSearchParams();
-                
-                // Agregar parámetros de filtro
                 if (filtrosActuales.texto) params.append('search', filtrosActuales.texto);
                 if (filtrosActuales.categoria) params.append('categoria', filtrosActuales.categoria);
                 if (filtrosActuales.precio) params.append('precio', filtrosActuales.precio);
                 if (filtrosActuales.ubicacion) params.append('ubicacion', filtrosActuales.ubicacion);
-                
-                // Agregar parámetros de paginación
                 params.append('pagina', paginaActual);
                 params.append('porPagina', cursosPorPagina);
-                
-                // Realizar petición AJAX
-                fetch(`../php/get_cursos.php?${params.toString()}`)
-                    .then(response => response.json())
+
+                fetch('get_cursos.php?' + params.toString())
+                    .then(response => {
+                        if (!response.ok) throw new Error('Error en la respuesta del servidor');
+                        return response.json();
+                    })
                     .then(data => {
                         mostrarCursos(data.cursos);
                         actualizarPaginacion(data.total);
-                        actualizarURL();
                     })
-                    .catch(error => console.error('Error:', error));
+                    .catch(error => {
+                        console.error('Error al cargar cursos:', error);
+                        cursosGrid.innerHTML = '<p>Error al cargar los cursos.</p>';
+                    });
             }
-            
-            // Función para mostrar cursos en el grid
+
             function mostrarCursos(cursos) {
                 cursosGrid.innerHTML = '';
-                
                 if (cursos.length === 0) {
-                    cursosGrid.innerHTML = '<p>No se encontraron cursos con los filtros seleccionados.</p>';
+                    cursosGrid.innerHTML = '<p>No se encontraron cursos.</p>';
                     return;
                 }
                 
@@ -244,39 +224,23 @@
                     const cursoElement = document.createElement('div');
                     cursoElement.className = 'curso-item';
                     cursoElement.innerHTML = `
-                        <img src="../uploads/${curso.imagen || 'default-course.jpg'}" alt="${curso.titulo}">
-                        <h3>${curso.titulo}</h3>
-                        <p>${curso.tema} - $${curso.precio}</p>
-                        <a href="detalle_curso.html?id=${curso.id}">Ver detalles</a>
+                        <img src="${curso.Imagen_curso}" alt="${curso.Titulo}">
+                        <h3>${curso.Titulo}</h3>
+                        <p>${curso.tema} - $${curso.Precio}</p>
+                        <p class="descripcion">${curso.Descripcion}</p>
+                        <a href="detalle_curso.html?id=${curso.ID_curso}" class="ver-curso">Ver curso</a>
                     `;
                     cursosGrid.appendChild(cursoElement);
                 });
             }
-            
-            // Función para actualizar controles de paginación
+
             function actualizarPaginacion(totalCursos) {
                 paginaActualSpan.textContent = paginaActual;
-                
                 const totalPaginas = Math.ceil(totalCursos / cursosPorPagina);
                 btnAnterior.disabled = paginaActual <= 1;
                 btnSiguiente.disabled = paginaActual >= totalPaginas;
             }
-            
-            // Función para actualizar la URL sin recargar
-            function actualizarURL() {
-                let nuevaURL = 'inicio.html?';
-                const params = [];
-                
-                if (filtrosActuales.texto) params.push(`search=${encodeURIComponent(filtrosActuales.texto)}`);
-                if (filtrosActuales.categoria) params.push(`categoria=${encodeURIComponent(filtrosActuales.categoria)}`);
-                if (filtrosActuales.precio) params.push(`precio=${encodeURIComponent(filtrosActuales.precio)}`);
-                if (filtrosActuales.ubicacion) params.push(`ubicacion=${encodeURIComponent(filtrosActuales.ubicacion)}`);
-                
-                nuevaURL += params.join('&');
-                window.history.pushState({}, '', nuevaURL);
-            }
-            
-            // Función para resetear filtros
+
             function resetearFiltros() {
                 filtrosActuales = {
                     texto: '',
