@@ -228,7 +228,7 @@
                         <h3>${curso.Titulo}</h3>
                         <p>${curso.tema} - $${curso.Precio}</p>
                         <p class="descripcion">${curso.Descripcion}</p>
-                        <a href="detalle_curso.html?id=${curso.ID_curso}" class="ver-curso">Ver curso</a>
+                        <a href="detalle_curso.php?id=${curso.ID_curso}" class="ver-curso" target="_blank" rel="noopener noreferrer">Ver curso</a>
                     `;
                     cursosGrid.appendChild(cursoElement);
                 });

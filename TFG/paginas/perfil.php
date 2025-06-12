@@ -11,6 +11,7 @@ $nombre = $_SESSION['usuario_nombre'];
 $email = $_SESSION['usuario_email'];
 $avatar = isset($_SESSION['usuario_avatar']) ? $_SESSION['usuario_avatar'] : '../imagenes/avatar_default.png';
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -21,7 +22,6 @@ $avatar = isset($_SESSION['usuario_avatar']) ? $_SESSION['usuario_avatar'] : '..
     <link rel="stylesheet" href="../estilos/inicio.css" />
     <link rel="stylesheet" href="../estilos/footer.css" />
     <link rel="stylesheet" href="../estilos/perfil.css" />
-   
 </head>
 <body>
     <div class="container">
@@ -64,21 +64,21 @@ $avatar = isset($_SESSION['usuario_avatar']) ? $_SESSION['usuario_avatar'] : '..
             <div class="tab-content active" id="published-courses">
                 <h2>Mis Cursos Publicados</h2>
                 <div class="courses-grid" id="published-courses-list">
-                    <!-- Cursos se cargarán vía JS -->
+                    <!-- Cursos publicados se cargan aquí -->
                 </div>
             </div>
 
             <div class="tab-content" id="subscribed-courses">
                 <h2>Cursos en los que estoy suscrito</h2>
                 <div class="courses-grid" id="subscribed-courses-list">
-                    <!-- Cursos suscritos -->
+                    <!-- Cursos suscritos se cargan aquí -->
                 </div>
             </div>
 
             <div class="tab-content" id="reviews">
                 <h2>Mis Reseñas</h2>
                 <div class="reviews-list" id="user-reviews">
-                    <!-- Reseñas -->
+                    <!-- Aquí puedes añadir las reseñas del usuario -->
                 </div>
             </div>
         </section>
@@ -100,7 +100,7 @@ $avatar = isset($_SESSION['usuario_avatar']) ? $_SESSION['usuario_avatar'] : '..
     </footer>
 
     <script>
-        // Cambiar pestañas
+        // Pestañas
         document.querySelectorAll('.tab-button').forEach(button => {
             button.addEventListener('click', function () {
                 document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
@@ -112,19 +112,14 @@ $avatar = isset($_SESSION['usuario_avatar']) ? $_SESSION['usuario_avatar'] : '..
             });
         });
 
-        // Cargar cursos publicados
+        // Cursos publicados
         window.addEventListener('DOMContentLoaded', () => {
             fetch('obtenerCursosPublicados.php')
                 .then(res => res.json())
                 .then(cursos => {
                     const container = document.getElementById('published-courses-list');
 
-                    if (cursos.error) {
-                        container.innerHTML = `<p>${cursos.error}</p>`;
-                        return;
-                    }
-
-                    if (cursos.length === 0) {
+                    if (!cursos || cursos.length === 0) {
                         container.innerHTML = '<p>No has publicado ningún curso aún.</p>';
                         return;
                     }
@@ -132,22 +127,56 @@ $avatar = isset($_SESSION['usuario_avatar']) ? $_SESSION['usuario_avatar'] : '..
                     cursos.forEach(curso => {
                         const div = document.createElement('div');
                         div.classList.add('course-card');
-
                         div.innerHTML = `
                             <img src="${curso.Imagen || '../imagenes/curso-default.jpg'}" alt="Imagen del curso" class="course-image" />
                             <h3>${curso.Titulo}</h3>
                             <p>${curso.Descripcion}</p>
                             <span class="precio">Precio: €${curso.Precio}</span>
                         `;
-
                         container.appendChild(div);
                     });
                 })
                 .catch(err => {
-                    document.getElementById('published-courses-list').innerHTML = `<p>Error al cargar cursos.</p>`;
                     console.error(err);
+                    document.getElementById('published-courses-list').innerHTML = '<p>Error al cargar cursos publicados.</p>';
                 });
+
+            // Cursos inscritos
+            cargarCursosInscritos();
         });
+
+        function cargarCursosInscritos() {
+            const container = document.getElementById('subscribed-courses-list');
+            container.innerHTML = ''; // Limpiar contenido antes de cargar
+
+            fetch('obtenerCursosInscritos.php')
+                .then(res => {
+                    if (!res.ok) throw new Error("Error en la respuesta");
+                    return res.json();
+                })
+                .then(cursos => {
+                    if (!cursos || cursos.length === 0) {
+                        container.innerHTML = '<p>No estás inscrito en ningún curso.</p>';
+                        return;
+                    }
+
+                    cursos.forEach(curso => {
+                        const div = document.createElement('div');
+                        div.classList.add('course-card');
+                        div.innerHTML = `
+                            <img src="${curso.Imagen_curso || '../imagenes/curso-default.jpg'}" alt="Imagen del curso" class="course-image" />
+                            <h3>${curso.Titulo}</h3>
+                            <p>${curso.Descripcion}</p>
+                            <span class="estado">Estado: ${curso.Estado}</span>
+                        `;
+                        container.appendChild(div);
+                    });
+                })
+                .catch(err => {
+                    console.error(err);
+                    container.innerHTML = '<p>Error al cargar cursos inscritos.</p>';
+                });
+        }
     </script>
 </body>
 </html>
