@@ -114,7 +114,7 @@ $avatar = isset($_SESSION['usuario_avatar']) ? $_SESSION['usuario_avatar'] : '..
 
         // Cargar cursos publicados
         window.addEventListener('DOMContentLoaded', () => {
-            fetch('../api/obtenerCursosPublicados.php')
+            fetch('obtenerCursosPublicados.php')
                 .then(res => res.json())
                 .then(cursos => {
                     const container = document.getElementById('published-courses-list');
