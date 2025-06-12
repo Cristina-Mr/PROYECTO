@@ -39,7 +39,7 @@ body, html {
 
 .filtro-categoria.active {
     font-weight: bold;
-    color: #ffeb37;
+    color: #f39c12;
     text-decoration: underline;
 }
 
@@ -93,14 +93,13 @@ body, html {
     color: #666;
     margin: 10px 0;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
 .curso-item p {
-    color:#ffeb37;
+    color:#f39c12;
     font-weight: bold;
     margin: 5px 0;
 }
@@ -109,7 +108,7 @@ body, html {
     display: inline-block;
     margin-top: 10px;
     padding: 8px 15px;
-    background-color: #ffeb37;
+    background-color: #f39c12;
     color: white;
     text-decoration: none;
     border-radius: 4px;
@@ -117,7 +116,7 @@ body, html {
 }
 
 .ver-curso:hover {
-    background-color: #ffeb37;
+    background-color: #f39c12;
 }
 
 /* Estilos para el buscador avanzado */
@@ -171,7 +170,7 @@ body, html {
 
 .search-advanced select:focus,
 .search-advanced input:focus {
-    border-color: #ffeb37;
+    border-color: #f39c12;
     outline: none;
 }
 
@@ -189,13 +188,13 @@ body, html {
 }
 
 .toggle-advanced:hover {
-    color: #ffeb37;
+    color: #f39c12;
 }
 
 .btn-buscar-advanced {
     width: 100%;
     padding: 8px;
-    background-color: #ffeb37;
+    background-color: #f39c12;
     color: white;
     border: none;
     border-radius: 4px;
@@ -205,7 +204,7 @@ body, html {
 }
 
 .btn-buscar-advanced:hover {
-    background-color: #ffeb37;
+    background-color: #f39c12;
 }
 
 /* Estilos para la paginación */
@@ -219,7 +218,7 @@ body, html {
 
 .paginacion button {
     padding: 8px 16px;
-    background-color: #ffeb37;
+    background-color: #f39c12;
     color: white;
     border: none;
     border-radius: 4px;
@@ -228,7 +227,7 @@ body, html {
 }
 
 .paginacion button:hover {
-    background-color: #ffeb37;
+    background-color: #f39c12;
 }
 
 .paginacion button:disabled {
