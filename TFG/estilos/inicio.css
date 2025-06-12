@@ -1,0 +1,147 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Asegura que el padding y border no afecten el tamaño total de los elementos */
+    
+}
+
+body, html {
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden; /* Evita que el contenido se desborde horizontalmente */
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr auto;
+    gap: 6px;
+    min-height: 100vh; /* En lugar de height fija */
+    width: 100vw;
+}
+
+.contenido2 {
+    background-color: white;
+    color: black; /* Cambié el color de texto a negro para hacerlo visible en fondo blanco */
+    text-align: center;
+    padding: 20px;
+    font-size: 1.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%; /* Asegura que ocupe todo el espacio dentro de su celda */
+    height: 100%; /* Asegura que ocupe toda la altura asignada dentro del grid */
+}
+
+
+.HeadCarrusel{
+    text-align: center;
+}
+
+.filtro-categoria.active {
+    font-weight: bold;
+    color: #4CAF50; /* O el color principal de tu sitio */
+    text-decoration: underline;
+}
+
+.curso-item {
+    margin: 10px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.curso-item img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+  /* Estilos para el buscador avanzado */
+        .search-bar {
+            position: relative;
+        }
+        
+        .search-advanced {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 280px;
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+            z-index: 100;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .search-advanced.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .search-advanced .filtro-grupo {
+            margin-bottom: 12px;
+        }
+        
+        .search-advanced label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.85rem;
+            color: #555;
+        }
+        
+        .search-advanced select,
+        .search-advanced input {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        
+        .search-advanced select:focus,
+        .search-advanced input:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+        
+        .toggle-advanced {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            font-size: 0.75rem;
+            margin-top: 5px;
+            display: block;
+            text-align: right;
+            width: 100%;
+            padding: 2px 0;
+        }
+        
+        .toggle-advanced:hover {
+            color: #4CAF50;
+        }
+        
+        .btn-buscar-advanced {
+            width: 100%;
+            padding: 8px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        
+        .btn-buscar-advanced:hover {
+            background-color: #45a049;
+        }
