@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../estilos/inicio.css">
+    <link rel="stylesheet" href="../estilos/menuNav.css">
+    <link rel="stylesheet" href="../estilos/menuTop.css">
+    <link rel="stylesheet" href="../estilos/footer.css">
+    <link rel="stylesheet" href="../estilos/carrusel.css">
+    <link rel="stylesheet" href="../estilos/preguntas.css">
+    <title>ProClass - Inicio</title>
+ 
+</head>
+<body>
+    <div class="container">
+        <header class="menu">
+            <div class="logo">
+                <a href="inicio.html"><img src="../imagenes/logo.png" alt="Logo"></a>
+            </div> 
+            <nav>
+                <ul>
+                    <li class="search-bar">
+                        <form id="searchForm" method="get">
+                            <input type="text" name="search" placeholder="Buscar..." aria-label="Buscar">
+                            <button type="button" class="toggle-advanced">Búsqueda avanzada ▼</button>
+                            <div class="search-advanced">
+                                <div class="filtro-grupo">
+                                    <label for="search-categoria">Categoría:</label>
+                                    <select id="search-categoria" name="categoria">
+                                        <option value="">Todas las categorías</option>
+                                        <option value="Cocina">Cocina</option>
+                                        <option value="Música">Música</option>
+                                        <option value="Artesanía">Artesanía</option>
+                                        <option value="Idiomas">Idiomas</option>
+                                        <option value="Arte">Arte</option>
+                                        <option value="Danza">Danza</option>
+                                    </select>
+                                </div>
+                                <div class="filtro-grupo">
+                                    <label for="search-precio">Rango de precios:</label>
+                                    <select id="search-precio" name="precio">
+                                        <option value="">Todos los precios</option>
+                                        <option value="0-50">$0 - $50</option>
+                                        <option value="50-100">$50 - $100</option>
+                                        <option value="100-200">$100 - $200</option>
+                                        <option value="200+">Más de $200</option>
+                                    </select>
+                                </div>
+                                <div class="filtro-grupo">
+                                    <label for="search-ubicacion">Ubicación:</label>
+                                    <input type="text" id="search-ubicacion" name="ubicacion" placeholder="Ciudad o barrio">
+                                </div>
+                                <button type="submit" class="btn-buscar-advanced">Aplicar Filtros</button>
+                            </div>
+                        </form>
+                    </li>
+                    <li><a href="creacurso.html">Publicar curso</a></li>
+                    <li><a href="perfil.php">Perfil</a></li>
+                    <li><a href="sesion.html">Ingresar</a></li>
+                    <li><a href="suscripciones.html">suscripciones</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section class="contenido1">
+            <nav>
+                <ul>
+                    <li>
+                        <ul>
+                            <li><a href="#" class="filtro-categoria" data-categoria="Cocina">Cocina</a></li>
+                            <li><a href="#" class="filtro-categoria" data-categoria="Música">Música</a></li>
+                            <li><a href="#" class="filtro-categoria" data-categoria="Artesanía">Artesanía</a></li>
+                            <li><a href="#" class="filtro-categoria" data-categoria="Idiomas">Idiomas</a></li>
+                            <li><a href="#" class="filtro-categoria" data-categoria="Arte">Arte</a></li>
+                            <li><a href="#" class="filtro-categoria" data-categoria="Danza">Danza</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#" id="quitar-filtros">Ver todos</a></li>
+                </ul>
+            </nav>
+        </section>
+
+        <section class="contenido2">
+            <h2>Cursos Disponibles</h2>
+            <div class="cursos-grid" id="cursosGrid">
+                <!-- Los cursos se cargarán aquí dinámicamente -->
+            </div>
+        </section>
+
+        <section class="contenido3">
+            <div class="paginacion">
+                <button id="btnAnterior">Anterior</button>
+                <span id="paginaActual">1</span>
+                <button id="btnSiguiente">Siguiente</button>
+            </div>
+        </section>
+
+         <footer class="pie">
+  <div class="footer-content">
+    <div class="footer-logo">
+      <img id="minilogo" src="../imagenes/logo.png" alt="Logo">
+      <span class="copyright-text">© 2025 ProClass</span>
+    </div>
+
+     <div class="footer-divider"></div> <!-- Línea separadora -->
+
+    <div class="footer-links">
+      <a href="PoliticaPrivacidad.html">Política de privacidad</a> 
+      <a href="preguntas.html">Preguntas Frecuentes</a>
+      <a href="contacto.html">Contacto</a>
+      
+    </div>
+  </div>
+</footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Variables para paginación y filtros
+            let paginaActual = 1;
+            const cursosPorPagina = 4;
+            let filtrosActuales = {
+                texto: '',
+                categoria: '',
+                precio: '',
+                ubicacion: ''
+            };
+            
+            // Elementos del DOM
+            const cursosGrid = document.getElementById('cursosGrid');
+            const btnAnterior = document.getElementById('btnAnterior');
+            const btnSiguiente = document.getElementById('btnSiguiente');
+            const paginaActualSpan = document.getElementById('paginaActual');
+            const filtrosCategoria = document.querySelectorAll('.filtro-categoria');
+            const btnQuitarFiltros = document.getElementById('quitar-filtros');
+            const searchForm = document.getElementById('searchForm');
+            const searchAdvanced = document.querySelector('.search-advanced');
+            const toggleAdvanced = document.querySelector('.toggle-advanced');
+            
+            // Mostrar/ocultar búsqueda avanzada
+            toggleAdvanced.addEventListener('click', function(e) {
+                e.stopPropagation(); // Evita que el click se propague
+                searchAdvanced.classList.toggle('active');
+            });
+            
+            // Ocultar el menú al hacer click fuera
+            document.addEventListener('click', function(e) {
+                if (!searchAdvanced.contains(e.target) && e.target !== toggleAdvanced) {
+                    searchAdvanced.classList.remove('active');
+                }
+            });
+            
+            // Cargar cursos iniciales
+            cargarCursos();
+            
+            // Event listeners para paginación
+            btnAnterior.addEventListener('click', function() {
+                if (paginaActual > 1) {
+                    paginaActual--;
+                    cargarCursos();
+                }
+            });
+            
+            btnSiguiente.addEventListener('click', function() {
+                paginaActual++;
+                cargarCursos();
+            });
+            
+            // Event listeners para filtros de categoría
+            filtrosCategoria.forEach(filtro => {
+                filtro.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    filtrosActuales.categoria = this.dataset.categoria;
+                    paginaActual = 1;
+                    cargarCursos();
+                    
+                    // Resaltar categoría seleccionada
+                    filtrosCategoria.forEach(f => f.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Event listener para quitar filtros
+            btnQuitarFiltros.addEventListener('click', function(e) {
+                e.preventDefault();
+                resetearFiltros();
+                cargarCursos();
+            });
+            
+            // Event listener para el formulario de búsqueda
+            searchForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+                
+                // Actualizar filtros
+                filtrosActuales = {
+                    texto: formData.get('search') || '',
+                    categoria: formData.get('categoria') || '',
+                    precio: formData.get('precio') || '',
+                    ubicacion: formData.get('ubicacion') || ''
+                };
+                
+                paginaActual = 1;
+                cargarCursos();
+                searchAdvanced.classList.remove('active');
+            });
+            
+            // Función para cargar cursos
+            function cargarCursos() {
+                const params = new URLSearchParams();
+                
+                // Agregar parámetros de filtro
+                if (filtrosActuales.texto) params.append('search', filtrosActuales.texto);
+                if (filtrosActuales.categoria) params.append('categoria', filtrosActuales.categoria);
+                if (filtrosActuales.precio) params.append('precio', filtrosActuales.precio);
+                if (filtrosActuales.ubicacion) params.append('ubicacion', filtrosActuales.ubicacion);
+                
+                // Agregar parámetros de paginación
+                params.append('pagina', paginaActual);
+                params.append('porPagina', cursosPorPagina);
+                
+                // Realizar petición AJAX
+                fetch(`../php/get_cursos.php?${params.toString()}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        mostrarCursos(data.cursos);
+                        actualizarPaginacion(data.total);
+                        actualizarURL();
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+            
+            // Función para mostrar cursos en el grid
+            function mostrarCursos(cursos) {
+                cursosGrid.innerHTML = '';
+                
+                if (cursos.length === 0) {
+                    cursosGrid.innerHTML = '<p>No se encontraron cursos con los filtros seleccionados.</p>';
+                    return;
+                }
+                
+                cursos.forEach(curso => {
+                    const cursoElement = document.createElement('div');
+                    cursoElement.className = 'curso-item';
+                    cursoElement.innerHTML = `
+                        <img src="../uploads/${curso.imagen || 'default-course.jpg'}" alt="${curso.titulo}">
+                        <h3>${curso.titulo}</h3>
+                        <p>${curso.tema} - $${curso.precio}</p>
+                        <a href="detalle_curso.html?id=${curso.id}">Ver detalles</a>
+                    `;
+                    cursosGrid.appendChild(cursoElement);
+                });
+            }
+            
+            // Función para actualizar controles de paginación
+            function actualizarPaginacion(totalCursos) {
+                paginaActualSpan.textContent = paginaActual;
+                
+                const totalPaginas = Math.ceil(totalCursos / cursosPorPagina);
+                btnAnterior.disabled = paginaActual <= 1;
+                btnSiguiente.disabled = paginaActual >= totalPaginas;
+            }
+            
+            // Función para actualizar la URL sin recargar
+            function actualizarURL() {
+                let nuevaURL = 'inicio.html?';
+                const params = [];
+                
+                if (filtrosActuales.texto) params.push(`search=${encodeURIComponent(filtrosActuales.texto)}`);
+                if (filtrosActuales.categoria) params.push(`categoria=${encodeURIComponent(filtrosActuales.categoria)}`);
+                if (filtrosActuales.precio) params.push(`precio=${encodeURIComponent(filtrosActuales.precio)}`);
+                if (filtrosActuales.ubicacion) params.push(`ubicacion=${encodeURIComponent(filtrosActuales.ubicacion)}`);
+                
+                nuevaURL += params.join('&');
+                window.history.pushState({}, '', nuevaURL);
+            }
+            
+            // Función para resetear filtros
+            function resetearFiltros() {
+                filtrosActuales = {
+                    texto: '',
+                    categoria: '',
+                    precio: '',
+                    ubicacion: ''
+                };
+                paginaActual = 1;
+                searchForm.reset();
+                filtrosCategoria.forEach(f => f.classList.remove('active'));
+            }
+        });
+    </script>
+</body>
+</html>
