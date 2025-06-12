@@ -20,7 +20,7 @@ $resultado = $stmt->get_result();
 $usuario = $resultado->fetch_assoc();
 $stmt->close();
 
-$avatar = !empty($usuario['Foto_perfil']) ? "../api/uploads/" . $usuario['Foto_perfil'] : "../imagenes/avatar_default.png";
+$avatar = !empty($usuario['Foto_perfil']) ? "uploads/" . $usuario['Foto_perfil'] : "../imagenes/avatar_default.png";
 ?>
 <!DOCTYPE html>
 <html lang="es">
