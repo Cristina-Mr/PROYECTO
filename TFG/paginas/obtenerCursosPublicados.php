@@ -39,7 +39,7 @@ $cursos = [];
 while ($curso = $resultado->fetch_assoc()) {
     // Ajustar la ruta de la imagen si existe
     if (!empty($curso['Imagen'])) {
-        $curso['Imagen'] = '../api/uploads/' . $curso['Imagen'];
+        $curso['Imagen'] = 'uploads/' . $curso['Imagen'];
     } else {
         $curso['Imagen'] = '../imagenes/default-curso.jpg'; // Imagen por defecto si no hay
     }
