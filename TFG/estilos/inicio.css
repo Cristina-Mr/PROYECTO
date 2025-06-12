@@ -1,14 +1,13 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* Asegura que el padding y border no afecten el tamaño total de los elementos */
-    
+    box-sizing: border-box;
 }
 
 body, html {
     height: 100%;
     width: 100%;
-    overflow-x: hidden; /* Evita que el contenido se desborde horizontalmente */
+    overflow-x: hidden;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -17,131 +16,222 @@ body, html {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto 1fr auto;
     gap: 6px;
-    min-height: 100vh; /* En lugar de height fija */
+    min-height: 100vh;
     width: 100vw;
 }
 
 .contenido2 {
     background-color: white;
-    color: black; /* Cambié el color de texto a negro para hacerlo visible en fondo blanco */
+    color: black;
     text-align: center;
     padding: 20px;
     font-size: 1.5em;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%; /* Asegura que ocupe todo el espacio dentro de su celda */
-    height: 100%; /* Asegura que ocupe toda la altura asignada dentro del grid */
+    width: 100%;
+    height: 100%;
 }
 
-
-.HeadCarrusel{
+.HeadCarrusel {
     text-align: center;
 }
 
 .filtro-categoria.active {
     font-weight: bold;
-    color: #4CAF50; /* O el color principal de tu sitio */
+    color: #ffeb37;
     text-decoration: underline;
 }
 
+/* Carrusel de cursos */
+.cursos-grid {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 20px 0;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+}
+
+.cursos-grid::-webkit-scrollbar {
+    display: none;
+}
+
 .curso-item {
-    margin: 10px;
-    padding: 15px;
+    flex: 0 0 auto;
+    width: 250px;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    padding: 15px;
+    border-radius: 10px;
+    background: #fff;
     text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.curso-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 .curso-item img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 5px;
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
 }
-  /* Estilos para el buscador avanzado */
-        .search-bar {
-            position: relative;
-        }
-        
-        .search-advanced {
-            display: none;
-            position: absolute;
-            top: 100%;
-            right: 0;
-            width: 280px;
-            background: white;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-            z-index: 100;
-            border: 1px solid #e0e0e0;
-        }
-        
-        .search-advanced.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .search-advanced .filtro-grupo {
-            margin-bottom: 12px;
-        }
-        
-        .search-advanced label {
-            display: block;
-            margin-bottom: 5px;
-            font-size: 0.85rem;
-            color: #555;
-        }
-        
-        .search-advanced select,
-        .search-advanced input {
-            width: 100%;
-            padding: 8px 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 0.9rem;
-        }
-        
-        .search-advanced select:focus,
-        .search-advanced input:focus {
-            border-color: #4CAF50;
-            outline: none;
-        }
-        
-        .toggle-advanced {
-            background: none;
-            border: none;
-            color: #666;
-            cursor: pointer;
-            font-size: 0.75rem;
-            margin-top: 5px;
-            display: block;
-            text-align: right;
-            width: 100%;
-            padding: 2px 0;
-        }
-        
-        .toggle-advanced:hover {
-            color: #4CAF50;
-        }
-        
-        .btn-buscar-advanced {
-            width: 100%;
-            padding: 8px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            margin-top: 5px;
-        }
-        
-        .btn-buscar-advanced:hover {
-            background-color: #45a049;
-        }
+
+.curso-item h3 {
+    margin: 10px 0;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.curso-item .descripcion {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 10px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.curso-item p {
+    color:#ffeb37;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.ver-curso {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 15px;
+    background-color: #ffeb37;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.ver-curso:hover {
+    background-color: #ffeb37;
+}
+
+/* Estilos para el buscador avanzado */
+.search-bar {
+    position: relative;
+}
+
+.search-advanced {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 280px;
+    background: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    z-index: 100;
+    border: 1px solid #e0e0e0;
+}
+
+.search-advanced.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.search-advanced .filtro-grupo {
+    margin-bottom: 12px;
+}
+
+.search-advanced label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.85rem;
+    color: #555;
+}
+
+.search-advanced select,
+.search-advanced input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.search-advanced select:focus,
+.search-advanced input:focus {
+    border-color: #ffeb37;
+    outline: none;
+}
+
+.toggle-advanced {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    font-size: 0.75rem;
+    margin-top: 5px;
+    display: block;
+    text-align: right;
+    width: 100%;
+    padding: 2px 0;
+}
+
+.toggle-advanced:hover {
+    color: #ffeb37;
+}
+
+.btn-buscar-advanced {
+    width: 100%;
+    padding: 8px;
+    background-color: #ffeb37;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+.btn-buscar-advanced:hover {
+    background-color: #ffeb37;
+}
+
+/* Estilos para la paginación */
+.paginacion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.paginacion button {
+    padding: 8px 16px;
+    background-color: #ffeb37;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.paginacion button:hover {
+    background-color: #ffeb37;
+}
+
+.paginacion button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
